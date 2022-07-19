@@ -3,41 +3,28 @@ import pywt
 from scipy.io import wavfile
 from PIL import Image
 import struct
-
-def img_bit_arr():
-    img = Image.open('watermark.jpg')  # 读取图片
-    img = img.convert('L')  # 灰度化
-    col,row = img.size  # 图像大小
-    imgarray = np.array(img)
-
-    retarray = []
-    for k in range(0, 8):
-        retarray.append((col&(2**k))>>k)
-        retarray.append((row&(2**k))>>k)
-
-    for i in range(0, row):
-        for j in range(0, col):
-            for k in range(0, 8):
-                retarray.append((imgarray[i, j]&(2**k))>>k)
-    print("secretarrlen=",len(retarray),'\n')
-    return retarray
-
-
-def decrpbyte(flt):
-    print(flt)
-    tmp = struct.pack(">f",flt)
-    print("tmp",tmp)
-    lastbit = int(tmp[len(tmp)-1])
-    print("lastbit",lastbit)
-    return lastbit
+from matplotlib import pyplot as plt
 
 #create a bit space to set secret information
-def lb_decryption(fltarr):
-    bitarr = []
-    lenfr = len(fltarr)
-    for i in range (0, 5):
-        bitarr.append(decrpbyte(fltarr[i]))
-    return bitarr
+def lb_decryption(imgarr):
+    col = imgarr[0]
+    row = imgarr[1]
+    cnt = 2
+    grayimg = np.zeros((100,100))
+    for i in range(0,100):
+        for j in range(0,100):
+            grayimg[i,j]=imgarr[cnt]
+            cnt = cnt + 1
+    plt.imsave('reveal.jpg', grayimg)
+    img = Image.open('watermark.jpg')  # 读取图片
+    img = img.convert('L')  # 灰度化
+    imgarray = np.array(img)
+    print("imgarray",imgarray)
+    im = Image.open('watermark.jpg').convert('L').save('graymrk.png')
+    # 使用matplotlib读取图像然后保存为numpy中的数组
+    colorimg = np.array(plt.imread('watermark.jpg'))
+    print("colorimg", colorimg)
+    print("grayimg", grayimg)
 
 
 samplerate, dataleft = wavfile.read('tbd.wav')
@@ -49,6 +36,7 @@ print(dataleft)
 coeffs = pywt.wavedec(dataleft, 'haar', mode='sym', level=2)  # DWT
 cA2, cD2, cD1 = coeffs
 print("cD2", cD2)
-secretarr = lb_decryption(cD2)
+imgarr = cD2.astype("int16")
+secretarr = lb_decryption(imgarr)
 # get the changed array:
-print(secretarr)
+# print(secretarr)

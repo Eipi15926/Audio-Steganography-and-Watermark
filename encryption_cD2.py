@@ -20,15 +20,7 @@ def img_bit_arr():
 
 
 def encrpbyte(bl):
-    print(bl)
-    addtmp = struct.pack(">h", bl)
-    print("addtmp", addtmp)
-    for i in range(0,3-len(addtmp)):
-        addtmp = addtmp + struct.pack(">h",0)
-    print("newaddtmp",addtmp)
-    newflt = struct.unpack(">f", addtmp)
-    print(newflt[0])
-    return newflt[0]
+    return bl
 
 #create a bit space to set secret information
 def lb_encryption(fltarr, bitarr):
@@ -38,22 +30,33 @@ def lb_encryption(fltarr, bitarr):
     return fltarr
 
 # read the primary wav file:
-samplerate, dataleft = wavfile.read('test.wav')
-print(dataleft)
+samplerate, data = wavfile.read('test.wav')
+# separate left sound channel and right sound channel:
+dataleft = []
+dataright = []
+for elements in data:
+    dataleft.append(elements[0])
+    dataright.append(elements[1])
+print(data.dtype)
+# print("left sound channel ", dataleft)
 t = np.arange(len(dataleft)) / float(samplerate)  # Getting Time
 tmp = max(dataleft)
 # dataleft = dataleft / max(dataleft)  # Normalize Audio Data
 # print(dataleft)
 coeffs = pywt.wavedec(dataleft, 'haar', mode='sym', level=2)  # DWT
 cA2, cD2, cD1 = coeffs
+print("coeffs",coeffs)
 #create secret array:
 secretarr = img_bit_arr()
-print(secretarr)
+# print(secretarr)
 cD2 = lb_encryption(cD2,secretarr)
+print("cD2len",len(cD2))
 print("cD2", cD2)
 # get the changed array:
 coeffs = cA2, cD2, cD1
 newwavarr = pywt.waverec(coeffs, 'haar', mode='sym')
-# change array into wav:
+# print("dataleft", dataleft)
 print("newwavarr", newwavarr)
+newwavarr = newwavarr.astype("int16")
+print(newwavarr.dtype)
 wavfile.write('tbd.wav', samplerate, newwavarr)
