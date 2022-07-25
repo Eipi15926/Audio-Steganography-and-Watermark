@@ -15,8 +15,7 @@ def lb_decryption(imgarr):
         for j in range(0,100):
             grayimg[i,j]=imgarr[cnt]
             cnt = cnt + 1
-    plt.imsave('reveal.jpg', grayimg)
-    img = Image.open('reveal.jpg').convert('L').save('reveal.jpg')
+    plt.imsave('rbreveal.jpg', grayimg)
     img = Image.open('watermark.jpg')  # 读取图片
     img = img.convert('L')  # 灰度化
     imgarray = np.array(img)
@@ -28,7 +27,7 @@ def lb_decryption(imgarr):
     print("grayimg", grayimg)
 
 
-samplerate, dataleft = wavfile.read('tbd.wav')
+samplerate, dataleft = wavfile.read('tbd_compress.wav')
 t = np.arange(len(dataleft)) / float(samplerate)  # Getting Time
 tmp = max(dataleft)
 print(dataleft)
@@ -37,6 +36,8 @@ print(dataleft)
 coeffs = pywt.wavedec(dataleft, 'haar', mode='sym', level=2)  # DWT
 cA2, cD2, cD1 = coeffs
 print("cD2", cD2)
+
+
 imgarr = cD2.astype("int16")
 secretarr = lb_decryption(imgarr)
 # get the changed array:

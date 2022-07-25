@@ -30,10 +30,14 @@ def lb_encryption(fltarr, bitarr):
     return fltarr
 
 # read the primary wav file:
-samplerate, dataleft = wavfile.read('test.wav')
+samplerate, data = wavfile.read('test.wav')
 # separate left sound channel and right sound channel:
-
-print(dataleft.dtype)
+dataleft = []
+dataright = []
+for elements in data:
+    dataleft.append(elements[0])
+    dataright.append(elements[1])
+print(data.dtype)
 # print("left sound channel ", dataleft)
 t = np.arange(len(dataleft)) / float(samplerate)  # Getting Time
 tmp = max(dataleft)
