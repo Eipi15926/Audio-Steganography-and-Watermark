@@ -2,12 +2,13 @@ import numpy as np
 import pywt
 from scipy.io import wavfile
 from PIL import Image
-import struct
+#size of the
+col = 100
+row = 100
 
 def img_bit_arr():
     img = Image.open('watermark.jpg')  # 读取图片
     img = img.convert('L')  # 灰度化
-    col,row = img.size  # 图像大小
     imgarray = np.array(img)
 
     retarray = []
