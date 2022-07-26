@@ -2,6 +2,7 @@ import numpy as np
 import pywt
 from scipy.io import wavfile
 from PIL import Image
+from matplotlib import pyplot as plt
 
 # watermark-image-size:
 col = 100
@@ -26,7 +27,7 @@ def img_bit_arr():
 def encrpbyte(bl):
     return bl
 
-#create a bit space to set secret information
+#create a space to set secret information
 def lb_encryption(fltarr, bitarr):
     lenbr = len(bitarr)
     for i in range (0, lenbr):

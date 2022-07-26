@@ -1,25 +1,36 @@
-# 为音频嵌入图片水印
-## 项目简介
-本项目将一张一定大小的灰度图隐写入音频作为水印，在版权保护领域有一定的实用意义。
-## 使用指南
-### 环境搭建
+# Audio steganography and a picture watermark embedded in the audio using DWT/DWT-LSB
+## Project profile
 
-安装Python3和如下packages（`pip install package-name`）:
+**This is a project of SWS3011, DOTA Defence of the ancient, finished by Group 4.**
+
+We apply several audio-watermark algorithm, I'm responsible for the DWT part and make some progress to combine DWT and LSB together as a new method.
+
+This project writes a certain size gray scale map into audio as watermark, which has certain practical significance in the field of copyright protection.
+## Guides
+### The environment to build
+
+Please install Python3 and the following packages（`pip install package-name`）:
 - numpy 
 - pywt 
 - scipy
 - PIL 
 
-### 水印的嵌入程序：`encryption_cD2`
-将所有需要用到的文件放在同一个文件夹下。
-程序输入：
-- 一张100*100的jpg图片作为要嵌入的水印
-- 一个长度不少于3s的单声道wav音频
+### Embedding program for watermarking：`encryption`
+Please put all the required files under the same folder.
+This program inputs：
 
-程序输出：嵌入了水印的wav音频
+- a 100*100 jpg image as the watermark to be embedded
+- a mono wav file whose length is more than 10 seconds
 
-### 水印的提取程序：`decryption`
-该程序接受一个嵌入了水印的音频作为输入，输出从音频中提取出的水印图片。
+and outputs an audio with watermark.
 
-### 鲁棒性检测文件夹：`robustness`
-按一定的信噪比对给定采样率的音频加入噪声，检测水印的鲁棒性。
+### The extraction procedure for the watermarking was performed：`decryption`
+The program accepts an embedded watermark audio as input and outputs the watermark picture extracted from the audio.
+
+### Robustness detection folder：`robustness`
+The robustness tests provided are：
+
+- The noise is added to the audio at a given sampling rate at a certain signal to noise ratio
+
+- Change the volume
+- Cut audio

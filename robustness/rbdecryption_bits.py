@@ -31,7 +31,7 @@ def lb_decryption(imgarr):
 
 
 
-samplerate, dataleft = wavfile.read('testbits_noise.wav')
+samplerate, dataleft = wavfile.read('testbits_db.wav')
 t = np.arange(len(dataleft)) / float(samplerate)  # Getting Time
 tmp = max(dataleft)
 print("dataleft", dataleft)

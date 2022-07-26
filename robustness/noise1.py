@@ -32,7 +32,7 @@ def main():
     # origin_au = './music/steg.wav'
     noise = 'noise.wav'
     # out_au = './music/add_noise.wav'
-    SNR = 50
+    SNR = 150
     add_noise(origin_au, noise, out_au, SNR)
 
 

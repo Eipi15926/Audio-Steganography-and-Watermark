@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 dwttype = 'bior5.5'
 
 #create a bit space to set secret information
+reveal_jpg = 'reveal_reverb.jpg'
 def lb_decryption(imgarr):
     cnt = 2
     grayimg = np.zeros((100,100))
@@ -15,17 +16,17 @@ def lb_decryption(imgarr):
             grayimg[i,j]=imgarr[cnt*10]
             cnt = cnt + 1
     # print("grayimg",grayimg)
-    plt.imsave('reveal.jpg', grayimg)
-    tmpimg = np.array(plt.imread('reveal.jpg'))
+    plt.imsave(reveal_jpg, grayimg)
+    tmpimg = np.array(plt.imread(reveal_jpg))
     print("tmpimg", tmpimg)
     for i in range(0,100):
         for j in range(0,100):
             tmpimg[i,j]=[grayimg[i,j],grayimg[i,j],grayimg[i,j]]
-    plt.imsave('reveal.jpg',tmpimg)
+    plt.imsave(reveal_jpg,tmpimg)
 
 
 
-samplerate, dataleft = wavfile.read('tbd_noise.wav')
+samplerate, dataleft = wavfile.read('tbd_reverb.wav')
 print("采样率", samplerate)
 print(len(dataleft))
 
