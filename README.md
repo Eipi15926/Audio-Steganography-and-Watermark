@@ -1,4 +1,4 @@
-# Audio steganography and a picture watermark embedded in the audio using DWT/DWT-LSB
+# Audio steganography and picture/audio/string watermark embedded in the audio using LSB/DCT/DWT/DWT-LSB
 ## Project profile
 
 **This is a project of SWS3011, DOTA Defence of the ancient, finished by Group 4.**
