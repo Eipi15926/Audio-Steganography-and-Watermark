@@ -27,3 +27,5 @@ https://www.semanticscholar.org/paper/A-Secure%2C-Robust-Watermark-for-Multimedi
 https://www.researchgate.net/publication/2354927_A_Multiresolution_Watermark_for_Digital_Images
 
 https://github.com/arooshiverma/Image-Watermarking-using-DCT
+
+https://github.com/ausilianapoli/Audio-watermark-using-DWT-DCT-scrambling-image
